@@ -19,7 +19,7 @@ DumbPy Functions:
 
 -   Median - the median function will calculate and return the median value of the inputted numerical list
 
-As stated above, the NumPy package already exists and provides similar functions. DumbPy is an alternative version, which \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+As stated above, the NumPy package already exists and provides similar functions. NumPy can be found at the following link: <https://numpy.org/>. DumbPy is an alternative version, which \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
 
 ## Get started
 
