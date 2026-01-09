@@ -10,6 +10,11 @@ If you don't plan to publish to PyPI, you can remove them.*
 
 dumbpy is a dumber version of numpy.
 
+## Contributors
+- Hector Prieto
+- Nicole Link
+- Samrawit Mezgebo
+
 ## Get started
 
 You can install this package into your preferred Python environment using pip:
