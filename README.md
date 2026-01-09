@@ -21,6 +21,11 @@ DumbPy Functions:
 
 As stated above, the NumPy package already exists and provides similar functions. NumPy can be found at the following link: <https://numpy.org/>. DumbPy is an alternative version, which \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
 
+## Contributors
+- Hector Prieto
+- Nicole Link
+- Samrawit Mezgebo
+
 ## Get started
 
 You can install this package into your preferred Python environment using pip:
