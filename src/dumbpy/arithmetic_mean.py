@@ -5,9 +5,9 @@ A module that calculates the arithmetic mean of a list of numbers
 
 from support_functions import *
 
-def arithmetic_mean(values: list[float | int]):
+def arithmetic_mean(values: list[float | int | bool]) -> float | int:
     """
-    Calculate the arithmetich mean of the inputted list and return the result.
+    Calculate the arithmetic mean of the inputted list and return the result.
 
     Parameters
     ----------

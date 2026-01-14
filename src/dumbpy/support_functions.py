@@ -61,7 +61,7 @@ def flatten_list(values: Iterable) -> list:
 
 
 
-def validate_types(values: list) -> None:
+def validate_list(values: list) -> list[int | float | bool]:
     """
     Validate that the input is a list of numeric values.
 
@@ -74,6 +74,13 @@ def validate_types(values: list) -> None:
     values : list
         A list input provided by the user.
 
+    Returns
+    -------
+    list[int | float | bool]
+        A flattened list containing all elements from `values`, if
+        values are all numeric.
+
+        
     Raises
     ------
     TypeError
@@ -95,6 +102,6 @@ def validate_types(values: list) -> None:
         if not isinstance(value, (float, int, bool)):
             raise TypeError(f"{value} is not a numeric value.")
 
-    return None
+    return flat_values
 
 
