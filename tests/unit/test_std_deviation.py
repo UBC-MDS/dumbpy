@@ -47,7 +47,8 @@ def test_std_dev_mixed_type():
 
 def test_std_dev_single():
     """
-    std_deviation should compute the standard deviation of an single element list. 
+    std_deviation should compute the standard deviation of an single element list.
+    This test was suggested by ChatGPT, but was written by Nicole Link.  
     """
     single_input = [1]
     expected = 0
@@ -57,6 +58,7 @@ def test_std_dev_single():
 def test_std_dev_neg():
     """
     std_deviation should compute the standard deviation of a list containing negative numbers.
+    This test was suggested by ChatGPT, but was written by Nicole Link. 
     """
     neg_input = [-1, -1, 0, 0]
     expected = 0.5
@@ -74,6 +76,7 @@ def test_std_dev_empty():
 def test_std_dev_nonnum():
     """
     std_deviation should raise a Type Error for an list with non-numeric elements.
+    This test was suggested by ChatGPT, but was written by Nicole Link. 
     """
     with pytest.raises(TypeError):
         std_deviation([1, "a", 3])
