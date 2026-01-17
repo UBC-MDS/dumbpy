@@ -38,10 +38,10 @@ keywords = []
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/hpalafoxp/dumbpy"
-"Source Code" = "https://github.com/hpalafoxp/dumbpy"
-"Bug Tracker" = "https://github.com/hpalafoxp/dumbpy/issues"
-Documentation = "https://github.com/hpalafoxp/dumbpy/blob/main/README.md"
+Homepage = "https://github.com/UBC-MDS/dumbpy/dumbpy"
+"Source Code" = "https://github.com/UBC-MDS/dumbpy/dumbpy"
+"Bug Tracker" = "https://github.com/UBC-MDS/dumbpy/dumbpy/issues"
+Documentation = "https://github.com/UBC-MDS/dumbpy/dumbpy/blob/main/README.md"
 Download = "https://pypi.org/project/dumbpy/#files"
 
 [project.optional-dependencies]

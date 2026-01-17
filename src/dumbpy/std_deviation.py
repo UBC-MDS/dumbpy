@@ -1,50 +1,60 @@
 """
-A module that calculates the standard deviation of a list of numbers.
+dumbpy.std_deviation
+====================
 
+Compute the population standard deviation of numeric values.
+
+The input may be a nested iterable; nesting is flattened via
+:func:`dumbpy.support_functions.validate_list`.
 """
 
-from dumbpy.support_functions import validate_list, flatten_list
-from dumbpy.arithmetic_mean import arithmetic_mean
+from collections.abc import Iterable
+from typing import Any
 
-def std_deviation(values: list[float | int]) -> float:
+from dumbpy.arithmetic_mean import arithmetic_mean
+from dumbpy.support_functions import Numeric, validate_list
+
+
+def std_deviation(values: Iterable[Any]) -> float:
     """
-    Calculate and return the population standard deviation of a list of numeric values.
+    Compute the population standard deviation of numeric values.
+
+    This uses the population variance definition:
+
+    ``variance = sum((x - mean)**2) / n``
 
     Parameters
     ----------
-    values : list[float | int]
-        A list of numbers.
+    values : Iterable[Any]
+        A (possibly nested) iterable containing numeric values.
 
     Returns
     -------
     float
-        The standard deviation of the list of numbers.
-    
+        The population standard deviation of the numeric values.
+
     Raises
     ------
     ValueError
-        If the input list is empty.
-    
+        If the flattened input contains no elements.
     TypeError
-        If the input list contains a non-numeric datatype
+        If the input is not a valid iterable for flattening, or if any element
+        is non-numeric (raised by :func:`validate_list`).
 
     Examples
     --------
     >>> std_deviation([1, 1, 1, 1])
-    0
+    0.0
     >>> std_deviation([1, 2, 3, 4])
     1.118033988749895
     """
+    numbers: list[Numeric] = validate_list(values)
 
-    ## This will raise errors if the value type is not compatible. Copied from Hector's arithmetic_mean function
-    numbers: list[int | float | bool] = validate_list(values)
+    if len(numbers) == 0:
+        raise ValueError("The number list needs to have at least one numeric element")
 
-    n = len(values)
-    mean = arithmetic_mean(values)
+    n: int = len(numbers)
+    mean: float = arithmetic_mean(numbers)
 
-    variance = sum((x - mean) ** 2 for x in values) / n
-    std_dev = variance ** 0.5
-    
-    return std_dev
-
-    
+    variance: float = sum((x - mean) ** 2 for x in numbers) / n
+    return variance**0.5
