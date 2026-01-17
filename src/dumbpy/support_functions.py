@@ -1,107 +1,121 @@
 """
-A module of support functions for the dumbpy main functionality
+dumbpy.support_functions
+========================
 
+Support utilities for the dumbpy package.
+
+This module provides:
+
+- ``flatten_list``: recursively flattens nested (non-string/bytes) iterables
+  into a one-dimensional Python list.
+- ``validate_list``: flattens the input and ensures all resulting elements are
+  numeric (``int``, ``float``, or ``bool``).
+
+Notes
+-----
+- Strings and bytes are treated as atomic leaf values when nested, but are
+  rejected as the *top-level* input to ``flatten_list`` (and therefore to
+  ``validate_list``).
+- Dictionaries are iterables in Python; flattening a dict will iterate over its
+  keys (standard Python behavior).
 """
 
-from typing import Any
 from collections.abc import Iterable
+from typing import Any
+
+Numeric = int | float | bool
 
 
-def flatten_list(values: Iterable) -> list:
+def flatten_list(values: Iterable[Any]) -> list[Any]:
     """
-    Flatten a nested list into a single, one-dimensional list.
+    Flatten a nested iterable into a single, one-dimensional list.
 
-    This function takes a list that may contain nested lists and
-    returns a new list with all elements flattened into a single
-    level, preserving their original order.
+    This function takes an iterable that may contain nested iterables and
+    returns a new list with all elements flattened into a single level.
 
     Parameters
     ----------
-    values : Iterable
-        An iterable object (except strings) that may contain nested iterables of arbitrary depth.
+    values : Iterable[Any]
+        An iterable object (except strings and bytes) that may contain nested
+        iterables of arbitrary depth.
 
     Returns
     -------
-    list
+    list[Any]
         A flattened list containing all elements from `values`.
 
     Raises
     ------
     TypeError
-        If `values` is not a list.
+        If `values` is not an iterable or if it is a string/bytes object.
 
     Examples
     --------
     >>> flatten_list([1, 2, [3, 4]])
     [1, 2, 3, 4]
-
     >>> flatten_list([[1, 2], [3, [4, 5]]])
     [1, 2, 3, 4, 5]
-
     >>> flatten_list([])
     []
     """
-    
-    if not isinstance(values, Iterable) or isinstance(values, str):
-        raise TypeError("Input should be a non-string iterable object")
+    if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
+        raise TypeError("Input should be a non-string, non-bytes iterable object")
 
     output_list: list[Any] = []
 
-    def _flatten_layer(layer: Iterable) -> None:
+    def _flatten_layer(layer: Iterable[Any]) -> None:
         for element in layer:
             if isinstance(element, Iterable) and not isinstance(element, (str, bytes)):
                 _flatten_layer(element)
             else:
                 output_list.append(element)
-        return None
-    
-    _flatten_layer(values)
 
+    _flatten_layer(values)
     return output_list
 
 
-
-def validate_list(values: list) -> list[int | float | bool]:
+def validate_list(values: Iterable[Any]) -> list[Numeric]:
     """
-    Validate that the input is a list of numeric values.
+    Validate that the input is a nested iterable of numeric values.
 
-    This function checks whether the provided input is a list
-    containing only numeric types (integers or floats). If the input
-    contains non-numeric values, a TypeError is raised.
+    The input is flattened using :func:`dumbpy.support_functions.flatten_list`,
+    then each flattened element is checked to be an ``int``, ``float``, or
+    ``bool``. If all elements are numeric, the flattened list is returned.
 
     Parameters
     ----------
-    values : list
-        A list input provided by the user.
+    values : Iterable[Any]
+        Any nested iterable that may contain numeric values.
 
     Returns
     -------
-    list[int | float | bool]
-        A flattened list containing all elements from `values`, if
-        values are all numeric.
+    list[Numeric]
+        A flattened list containing all elements from `values`, if all values
+        are numeric.
 
-        
     Raises
     ------
     TypeError
-        If any element in `values` is not a numeric type.
+        If `values` is not a valid top-level input for :func:`flatten_list`, or
+        if any flattened element is not numeric.
 
     Examples
     --------
-    >>> validate_types([1, 2, 3.5])
-    >>> validate_types([1, True, 6])
-    >>> validate_types([1, "a", 3])
+    >>> validate_list([1, 2, 3.5])
+    [1, 2, 3.5]
+    >>> validate_list([1, True, 6])
+    [1, True, 6]
+    >>> validate_list([1, "a", 3])
     Traceback (most recent call last):
         ...
-    TypeError: All elements must be numeric.
+    TypeError: a is not a numeric value.
     """
     flat_values: list[Any] = flatten_list(values)
 
+    numeric_values: list[Numeric] = []
     for value in flat_values:
-
-        if not isinstance(value, (float, int, bool)):
+        if not isinstance(value, (int, float, bool)):
             raise TypeError(f"{value} is not a numeric value.")
+        numeric_values.append(value)
 
-    return flat_values
-
-
+    return numeric_values

@@ -11,13 +11,13 @@ DumbPy is an alternative version of NumPy, which facilitates scientific computin
 
 DumbPy Functions:
 
--   Helper functions - these functions will test the inputted object, and will catch any input besides a list of numbers and produce suitable error messages. Additionally, there will be a helper function that will take user input on whether to flatten an inputted list of lists into one list.
+-   `support_functions` - these functions will test the inputted object, and will catch any input besides a list of numbers and produce suitable error messages. Additionally, there will be a helper function that will take user input on whether to flatten an inputted list of lists into one list.
 
--   Mean - the mean function will calculate and return the mean, or the average, of the inputted numerical list.
+-   `arithmetic_mean` - the mean function will calculate and return the mean, or the average, of the inputted numerical list.
 
--   Standard Deviation - the standard deviation function will calculate and return the standard deviation of the inputted numerical list.
+-   `std_deviation` - the standard deviation function will calculate and return the standard deviation of the inputted numerical list.
 
--   Median - the median function will calculate and return the median value of the inputted numerical list
+-   `median` - the median function will calculate and return the median value of the inputted numerical list
 
 As stated above, the NumPy package already exists and provides similar functions. NumPy can be found at the following link: <https://numpy.org/>. DumbPy is an alternative version, which is much simpler and has a narrower focus.
 
@@ -35,13 +35,12 @@ You can install this package into your preferred Python environment using pip:
 $ pip install dumbpy
 ```
 
-TODO: Add a brief example of how to use the package to this section
-
 To use dumbpy in your code:
 
 ``` python
 >>> import dumbpy
->>> dumbpy.hello_world()
+>>> dumbpy.arithmetic_mean([1,2,3])
+2.0
 ```
 
 ## Copyright

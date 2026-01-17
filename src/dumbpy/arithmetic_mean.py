@@ -1,48 +1,56 @@
 """
-A module that calculates the arithmetic mean of a list of numbers
+dumbpy.arithmetic_mean
+======================
 
+Compute the arithmetic mean of numeric values.
+
+The input may be a nested iterable; nesting is flattened via
+:func:`dumbpy.support_functions.validate_list`.
 """
 
-from dumbpy.support_functions import *
+from collections.abc import Iterable
+from typing import Any
 
-def arithmetic_mean(values: list[float | int | bool]) -> float:
+from dumbpy.support_functions import Numeric, validate_list
+
+
+def arithmetic_mean(values: Iterable[Any]) -> float:
     """
-    Calculate the arithmetic mean of the inputted list and return the result.
+    Compute the arithmetic mean of numeric values.
 
     Parameters
     ----------
-    values : list[float | int | bool]
-        A list of numbers.
+    values : Iterable[Any]
+        A (possibly nested) iterable containing numeric values.
 
     Returns
     -------
     float
-        The arithmetic mean of the list of numbers.
+        The arithmetic mean of the numeric values.
+
+    Raises
+    ------
+    ValueError
+        If the flattened input contains no elements.
+    TypeError
+        If the input is not a valid iterable for flattening, or if any element
+        is non-numeric (raised by :func:`validate_list`).
 
     Examples
     --------
     >>> arithmetic_mean([1, 2, 3, 4])
     2.5
+    >>> arithmetic_mean([1, [2, 3]])
+    2.0
     """
-    
-    ## This will raise errors if the value type is not compatible.
-    numbers: list[int | float | bool] = validate_list(values)
-    
-
+    numbers: list[Numeric] = validate_list(values)
     n_elements: int = len(numbers)
 
-    if not (n_elements > 0):
-        raise ValueError(
-            "The number list needs to have at least one numeric element"
-        )
+    if n_elements == 0:
+        raise ValueError("The number list needs to have at least one numeric element")
 
-    addition: int | float = 0
-
+    total: float | int = 0
     for x in numbers:
-        addition += x
-    
-    return addition / n_elements
-    
+        total += x
 
-
-
+    return total / n_elements

@@ -1,97 +1,136 @@
 """
-Unit tests for arithmetic_mean.arithmetic_mean.
+Unit tests for dumbpy.arithmetic_mean.arithmetic_mean.
 
-Test cases covered
-------------------
-Required:
-- All int values
-- All float values
-- All bool values
-- Mixed numeric types (int, float, bool)
-- Empty input raises ValueError
-
-Bonus:
-- Nested numeric iterables are flattened via validate_list
-- Non-numeric values raise TypeError (from validate_list)
+Covered behavior
+----------------
+- Works on homogeneous numeric types (int, float, bool)
+- Works on mixed numeric types (int/float/bool)
+- Flattens nested iterables via validate_list
+- Accepts general iterables (e.g., tuples, generators)
+- Raises ValueError on empty input
+- Raises TypeError when non-numeric values appear after flattening
 """
+
+from typing import Any, Iterable
 
 import pytest
 
 from dumbpy.arithmetic_mean import arithmetic_mean
 
 
-def test_arithmetic_mean_all_ints():
+def test_arithmetic_mean_all_ints() -> None:
     """
-    arithmetic_mean should compute the mean of an int-only list.
+    Test arithmetic_mean on an int-only list.
+
+    Returns
+    -------
+    None
     """
-    values = [1, 2, 3, 4]
-    expected = 2.5
+    values: list[int] = [1, 2, 3, 4]
+    expected: float = 2.5
 
-    actual = arithmetic_mean(values)
-
-    assert actual == expected
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
 
-def test_arithmetic_mean_all_floats():
+def test_arithmetic_mean_all_floats() -> None:
     """
-    arithmetic_mean should compute the mean of a float-only list.
+    Test arithmetic_mean on a float-only list.
+
+    Returns
+    -------
+    None
     """
-    values = [1.0, 2.0, 3.5]
-    expected = (1.0 + 2.0 + 3.5) / 3
+    values: list[float] = [1.0, 2.0, 3.5]
+    expected: float = (1.0 + 2.0 + 3.5) / 3
 
-    actual = arithmetic_mean(values)
-
-    assert actual == expected
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
 
-def test_arithmetic_mean_all_bools():
+def test_arithmetic_mean_all_bools() -> None:
     """
-    arithmetic_mean should compute the mean of a bool-only list.
+    Test arithmetic_mean on a bool-only list.
 
     Notes
     -----
-    In Python, bool is a subclass of int:
-    True == 1 and False == 0.
+    In Python, ``bool`` is a subclass of ``int``:
+    ``True == 1`` and ``False == 0``.
+
+    Returns
+    -------
+    None
     """
-    values = [True, False, True, True]  # sum=3, n=4 => 0.75
-    expected = 0.75
+    values: list[bool] = [True, False, True, True]
+    expected: float = 0.75
 
-    actual = arithmetic_mean(values)
-
-    assert actual == expected
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
 
-def test_arithmetic_mean_mixed_numeric_including_bool():
+def test_arithmetic_mean_mixed_numeric_including_bool() -> None:
     """
-    arithmetic_mean should compute the mean of a mixed numeric list (int/float/bool).
+    Test arithmetic_mean on a mixed numeric list (int/float/bool).
+
+    Returns
+    -------
+    None
     """
-    values = [1, 2.5, True, False]  # 1 + 2.5 + 1 + 0 = 4.5, /4 = 1.125
-    expected = 1.125
+    values: list[int | float | bool] = [1, 2.5, True, False]
+    expected: float = 1.125
 
-    actual = arithmetic_mean(values)
-
-    assert actual == expected
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
 
-def test_arithmetic_mean_empty_list_raises_valueerror():
+def test_arithmetic_mean_empty_raises_valueerror() -> None:
     """
-    arithmetic_mean should raise ValueError for an empty list.
+    Test that arithmetic_mean raises ValueError on empty input.
+
+    Returns
+    -------
+    None
     """
     with pytest.raises(ValueError, match="at least one numeric element"):
         arithmetic_mean([])
 
 
-def test_arithmetic_mean_nested_numeric_iterables_are_flattened():
+def test_arithmetic_mean_nested_numeric_iterables_are_flattened() -> None:
     """
-    Bonus: arithmetic_mean should work with nested numeric iterables because validate_list
-    flattens them before calculation.
+    Test that arithmetic_mean works with nested numeric iterables.
+
+    Returns
+    -------
+    None
     """
-    values = [1, [2, 3]]  # flattened -> [1, 2, 3], mean = 2.0
-    expected = 2.0
+    values: list[int | list[int]] = [1, [2, 3]]
+    expected: float = 2.0
 
-    actual = arithmetic_mean(values)
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
-    assert actual == expected
+
+def test_arithmetic_mean_accepts_tuple_input() -> None:
+    """
+    Test that arithmetic_mean accepts a tuple as input.
+
+    Returns
+    -------
+    None
+    """
+    values: tuple[int, int, int] = (2, 4, 6)
+    expected: float = 4.0
+
+    assert arithmetic_mean(values) == pytest.approx(expected)
+
+
+def test_arithmetic_mean_accepts_generator_input() -> None:
+    """
+    Test that arithmetic_mean accepts a generator as input.
+
+    Returns
+    -------
+    None
+    """
+    values: Iterable[int] = (x for x in [1, 2, 3, 4])
+    expected: float = 2.5
+
+    assert arithmetic_mean(values) == pytest.approx(expected)
 
 
 @pytest.mark.parametrize(
@@ -99,12 +138,21 @@ def test_arithmetic_mean_nested_numeric_iterables_are_flattened():
     [
         [1, "x", 3],
         [1, [2, "nope"], 3],
-        [{"a": 1}],  # dict is iterable -> keys are strings -> non-numeric
+        [{"a": 1}],
     ],
 )
-def test_arithmetic_mean_non_numeric_raises_typeerror(values):
+def test_arithmetic_mean_non_numeric_raises_typeerror(values: Any) -> None:
     """
-    Bonus: arithmetic_mean should raise TypeError when validate_list finds a non-numeric value.
+    Test that arithmetic_mean raises TypeError for non-numeric values.
+
+    Parameters
+    ----------
+    values : Any
+        A value that will flatten to include at least one non-numeric element.
+
+    Returns
+    -------
+    None
     """
     with pytest.raises(TypeError, match="not a numeric value"):
         arithmetic_mean(values)
