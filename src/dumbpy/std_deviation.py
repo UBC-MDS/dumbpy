@@ -3,7 +3,7 @@ A module that calculates the standard deviation of a list of numbers.
 
 """
 
-from dumbpy.support_functions import validate_types, flatten_list
+from dumbpy.support_functions import validate_list, flatten_list
 from dumbpy.arithmetic_mean import arithmetic_mean
 
 def std_deviation(values: list[float | int]) -> float:
@@ -36,14 +36,11 @@ def std_deviation(values: list[float | int]) -> float:
     1.118033988749895
     """
 
-    #I will remove these 2 lines once the mean function has exception handling for this.
-    if not values:
-        raise ValueError("List must contain at least 1 element.")
+    ## This will raise errors if the value type is not compatible. Copied from Hector's arithmetic_mean function
+    numbers: list[int | float | bool] = validate_list(values)
 
     n = len(values)
-    mean = sum(values)/n
-    #mean = arithmetic_mean(values)
-    #I will remove the above mean calculation and uncomment the arithmetic_mean line once Hector's part is ready.
+    mean = arithmetic_mean(values)
 
     variance = sum((x - mean) ** 2 for x in values) / n
     std_dev = variance ** 0.5
