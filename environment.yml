@@ -1,0 +1,9 @@
+name: dumbpy-env
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - hatch
+  - copier
+  - pytest
+  - pip
