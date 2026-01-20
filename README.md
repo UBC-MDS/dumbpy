@@ -32,7 +32,7 @@ As stated above, the NumPy package already exists and provides similar functions
 You can install this package into your preferred Python environment using pip:
 
 ``` bash
-$ pip install dumbpy
+$ pip install dumbpy 
 ```
 
 To use dumbpy in your code:
