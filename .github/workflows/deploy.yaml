@@ -77,7 +77,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[dev]
 
-      - name: Hatch build
+      - name: Hatch build locally
         run: hatch build
 
       - name: Publish to TestPyPI
