@@ -38,11 +38,11 @@ keywords = []
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/UBC-MDS/dumbpy/dumbpy"
-"Source Code" = "https://github.com/UBC-MDS/dumbpy/dumbpy"
-"Bug Tracker" = "https://github.com/UBC-MDS/dumbpy/dumbpy/issues"
-Documentation = "https://github.com/UBC-MDS/dumbpy/dumbpy/blob/main/README.md"
-Download = "https://pypi.org/project/dumbpy/#files"
+Homepage = "https://github.com/UBC-MDS/dumbpy"
+"Source Code" = "https://github.com/UBC-MDS/dumbpy"
+"Bug Tracker" = "https://github.com/UBC-MDS/dumbpy/issues"
+Documentation = "https://github.com/UBC-MDS/dumbpy/blob/main/README.md"
+Download = "https://test.pypi.org/project/dumbpy/#files"
 
 [project.optional-dependencies]
 # The groups below should be in the [development-groups] table
