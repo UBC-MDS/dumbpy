@@ -23,7 +23,7 @@ As stated above, the NumPy package already exists and provides similar functions
 
 ## Contributors
 
--   Hector Prieto
+-   Hector Palafox
 -   Nicole Link
 -   Samrawit Mezgebo
 
@@ -45,5 +45,5 @@ To use dumbpy in your code:
 
 ## Copyright
 
--   Copyright © 2026 Hector Palafox.
+-   Copyright © 2026 Hector Palafox, Nicole Link, Samrawit Mezgebo.
 -   Free software distributed under the [MIT License](./LICENSE).
