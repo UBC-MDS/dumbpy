@@ -43,6 +43,10 @@ jobs:
           pytest --cov --cov-report=term --cov-branch
 
   cd:
+
+    # Set up operating system
+    runs-on: ubuntu-latest
+
     permissions:
       id-token: write
       contents: write
@@ -52,13 +56,6 @@ jobs:
     # Only run this job if new work is pushed to "main" or "dev"
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' )
 
-    # Set up operating system
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version: ['3.10', '3.11', '3.12', '3.13']
-
     # Define job steps
     steps:
       - name: Check-out repository
@@ -66,10 +63,10 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.12
 
       # Install dependencies
       - name: Install dependencies
@@ -82,16 +79,34 @@ jobs:
 
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-        if: steps.release.outputs.released == 'true'
         with:
-          repository-url: https://test.pypi.org/dumbpy/
+          repository-url: https://test.pypi.org/legacy/
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+
+  testdumbpy:
+
+    # Set up operating system
+    runs-on: ubuntu-latest
+
+    needs: cd
+
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+      
+    steps:
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Test install from TestPyPI
         run: |
-            pip install \
-            --index-url https://test.pypi.org/dumbpy/ \
-            --extra-index-url https://pypi.org/dumbpy \
-            pycounts
+          python -m pip install --upgrade pip
+          pip install \
+          --index-url https://test.pypi.org/simple/ \
+          --extra-index-url https://pypi.org/simple/ \
+          dumbpy
+
 
     
