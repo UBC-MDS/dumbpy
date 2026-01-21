@@ -4,9 +4,9 @@ name: ci-cd
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, dev ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
     needs: ci
 
     # Only run this job if new work is pushed to "main" or "dev"
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' )
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
 
     # Define job steps
     steps:
