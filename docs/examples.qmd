@@ -2,35 +2,101 @@
 title: "Examples"
 ---
 
-Below are small examples for each public function in `dumbpy`.
+This page shows simple examples for each public function in `dumbpy`.
+(Examples are shown for demonstration and are not executed during the docs build.)
 
 ## `arithmetic_mean`
 
-```python
-from dumbpy import arithmetic_mean
-arithmetic_mean([1, 2, 3])  # 2.0
-```
-## `std_deviation`
+Compute the average of numbers. Nested lists are flattened first.
 
-```python
-from dumbpy import std_deviation
-std_deviation([1, 2, 3])
+```{python}
+#| eval: false
+from dumbpy import arithmetic_mean
+
+arithmetic_mean([1, 2, 3, 4])  # 2.5
+arithmetic_mean([1, [2, 3]])   # 2.0
 ```
+
+```{python}
+#| eval: false
+from dumbpy import arithmetic_mean
+
+# arithmetic_mean([])  # raises ValueError
+```
+
 ## `median`
 
-```python
+Compute the median (middle value) of numbers. Nested lists are flattened first.
+
+```{python}
+#| eval: false
 from dumbpy import median
-median([1, 2, 3, 4])  # 2.5
+
+median([3, 1, 2])        # 2
+median([1, 2, 3, 4])     # 2.5
 ```
+
+```{python}
+#| eval: false
+from dumbpy import median
+
+# median([])  # raises ValueError
+```
+
+## `std_deviation`
+
+Compute the population standard deviation of numeric values. Nested lists are flattened first.
+
+```{python}
+#| eval: false
+from dumbpy import std_deviation
+
+std_deviation([1, 1, 1, 1])     # 0.0
+std_deviation([1, 2, 3, 4])     # 1.118033988749895
+```
+
+```{python}
+#| eval: false
+from dumbpy import std_deviation
+
+# std_deviation([])  # raises ValueError
+```
+
 ## `flatten_list`
 
-```python
-from dumbpy import flatten_list
-flatten_list([[1, 2], [3, 4]])  # [1, 2, 3, 4]
+Flatten a nested iterable into a one-dimensional Python list.
+
+```{python}
+#| eval: false
+from dumbpy.support_functions import flatten_list
+
+flatten_list([1, 2, [3, 4]])            # [1, 2, 3, 4]
+flatten_list([[1, 2], [3, [4, 5]]])     # [1, 2, 3, 4, 5]
+flatten_list([])                        # []
 ```
+
+```{python}
+#| eval: false
+from dumbpy.support_functions import flatten_list
+
+# flatten_list("abc")  # raises TypeError (strings are not allowed as top-level input)
+```
+
 ## `validate_list`
 
-```python
-from dumbpy import validate_list
-validate_list([1, 2, 3])
+Flatten the input and ensure all resulting values are numeric (`int`, `float`, or `bool`).
+
+```{python}
+#| eval: false
+from dumbpy.support_functions import validate_list
+
+validate_list([1, 2, 3.5])     # [1, 2, 3.5]
+validate_list([1, True, 6])    # [1, True, 6]
+```
+
+```{python}
+#| eval: false
+from dumbpy.support_functions import validate_list
+
+# validate_list([1, "a", 3])  # raises TypeError: a is not a numeric value.
 ```
