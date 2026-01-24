@@ -1,0 +1,42 @@
+# validate_list { #dumbpy.validate_list }
+
+```python
+validate_list(values)
+```
+
+Validate that the input is a nested iterable of numeric values.
+
+The input is flattened using :func:`dumbpy.support_functions.flatten_list`,
+then each flattened element is checked to be an ``int``, ``float``, or
+``bool``. If all elements are numeric, the flattened list is returned.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type            | Description                                          | Default    |
+|--------|-----------------|------------------------------------------------------|------------|
+| values | Iterable\[Any\] | Any nested iterable that may contain numeric values. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type            | Description                                                                        |
+|--------|-----------------|------------------------------------------------------------------------------------|
+|        | list\[Numeric\] | A flattened list containing all elements from `values`, if all values are numeric. |
+
+## Raises {.doc-section .doc-section-raises}
+
+| Name   | Type      | Description                                                                                                      |
+|--------|-----------|------------------------------------------------------------------------------------------------------------------|
+|        | TypeError | If `values` is not a valid top-level input for :func:`flatten_list`, or if any flattened element is not numeric. |
+
+## Examples {.doc-section .doc-section-examples}
+
+```python
+>>> validate_list([1, 2, 3.5])
+[1, 2, 3.5]
+>>> validate_list([1, True, 6])
+[1, True, 6]
+>>> validate_list([1, "a", 3])
+Traceback (most recent call last):
+    ...
+TypeError: a is not a numeric value.
+```

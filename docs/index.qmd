@@ -10,8 +10,9 @@ nested iterables of numeric values.
 ```python
 from dumbpy import arithmetic_mean, std_deviation, median, flatten_list, validate_list
 
-arithmetic_mean([1, 2, 3])
-std_deviation([1, 2, 3])
-median([1, 2, 3, 4])
-flatten_list([[1, 2], [3]])
-validate_list([1, 2, 3])
+arithmetic_mean([1, 2, 3])  # 2.0
+std_deviation([1, 2, 3])    # (whatever your function returns)
+median([1, 2, 3, 4])        # 2.5
+flatten_list([[1, 2], [3]]) # [1, 2, 3]
+validate_list([1, 2, 3])    # [1, 2, 3]
+```

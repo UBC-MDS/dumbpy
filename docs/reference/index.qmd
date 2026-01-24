@@ -1,11 +1,13 @@
----
-title: "Reference"
----
+# Function reference {.doc .doc-index}
 
-This section contains the API reference generated from docstrings using `quartodoc`.
+## Public API
 
-To regenerate the reference pages locally:
+Core functions exported by `dumbpy`.
 
-```bash
-quartodoc build
-```
+| | |
+| --- | --- |
+| [arithmetic_mean](arithmetic_mean.qmd#dumbpy.arithmetic_mean) | dumbpy.arithmetic_mean |
+| [std_deviation](std_deviation.qmd#dumbpy.std_deviation) | dumbpy.std_deviation |
+| [median](median.qmd#dumbpy.median) | dumbpy.median |
+| [flatten_list](flatten_list.qmd#dumbpy.flatten_list) | Flatten a nested iterable into a single, one-dimensional list. |
+| [validate_list](validate_list.qmd#dumbpy.validate_list) | Validate that the input is a nested iterable of numeric values. |
