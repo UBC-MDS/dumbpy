@@ -1,6 +1,11 @@
 project:
   type: website
 
+execute:
+  enabled: false
+
+jupyter: python3
+
 # tell quarto to read the generated sidebar + styles from quartodoc
 metadata-files:
   - reference/_sidebar.yml
