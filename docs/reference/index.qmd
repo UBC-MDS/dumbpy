@@ -1,0 +1,11 @@
+---
+title: "Reference"
+---
+
+This section contains the API reference generated from docstrings using `quartodoc`.
+
+To regenerate the reference pages locally:
+
+```bash
+quartodoc build
+```

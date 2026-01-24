@@ -1,0 +1,36 @@
+---
+title: "Examples"
+---
+
+Below are small examples for each public function in `dumbpy`.
+
+## `arithmetic_mean`
+
+```python
+from dumbpy import arithmetic_mean
+arithmetic_mean([1, 2, 3])  # 2.0
+```
+## `std_deviation`
+
+```python
+from dumbpy import std_deviation
+std_deviation([1, 2, 3])
+```
+## `median`
+
+```python
+from dumbpy import median
+median([1, 2, 3, 4])  # 2.5
+```
+## `flatten_list`
+
+```python
+from dumbpy import flatten_list
+flatten_list([[1, 2], [3, 4]])  # [1, 2, 3, 4]
+```
+## `validate_list`
+
+```python
+from dumbpy import validate_list
+validate_list([1, 2, 3])
+```

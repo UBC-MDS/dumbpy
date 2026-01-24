@@ -1,0 +1,38 @@
+project:
+  type: website
+
+# tell quarto to read the generated sidebar + styles from quartodoc
+metadata-files:
+  - reference/_sidebar.yml
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css:
+      - reference/_styles-quartodoc.css
+
+website:
+  title: "dumbpy"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: examples.qmd
+        text: Examples
+      - href: reference/index.qmd
+        text: Reference
+
+quartodoc:
+  package: dumbpy
+  sidebar: reference/_sidebar.yml
+  css: reference/_styles-quartodoc.css
+  sections:
+    - title: Public API
+      desc: Core functions exported by `dumbpy`.
+      contents:
+        - arithmetic_mean
+        - std_deviation
+        - median
+        - flatten_list
+        - validate_list
