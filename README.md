@@ -21,18 +21,12 @@ DumbPy Functions:
 
 As stated above, the NumPy package already exists and provides similar functions. NumPy can be found at the following link: <https://numpy.org/>. DumbPy is an alternative version, which is much simpler and has a narrower focus.
 
-## Contributors
-
--   Hector Palafox
--   Nicole Link
--   Samrawit Mezgebo
-
 ## Get started
 
 You can install this package into your preferred Python environment using pip:
 
 ``` bash
-$ pip install dumbpy 
+pip install dumbpy 
 ```
 
 To use dumbpy in your code:
@@ -42,6 +36,62 @@ To use dumbpy in your code:
 >>> dumbpy.arithmetic_mean([1,2,3])
 2.0
 ```
+
+## Contributors
+
+-   Hector Palafox
+-   Nicole Link
+-   Samrawit Mezgebo
+
+
+## Development 
+
+**1) Clone the repository**
+```bash
+git clone https://github.com/UBC-MDS/dumbpy.git
+cd dumbpy
+```
+
+**2) Create the conda environment**
+
+```bash
+conda env create -f environment.yml
+```
+
+**3) Activate the environment**
+
+```bash
+conda activate dumbpy-env
+```
+
+**4) Install the package locally**
+
+```bash
+python -m pip install -e .
+```
+
+**5) Run the test suite**
+
+```bash
+pytest
+```
+
+**6) Build the documentation**
+
+```bash
+cd docs
+quarto render
+```
+
+**7) Preview the documentation locally(optional)**
+
+```bash
+quarto preview
+```
+
+Docs are deployed automatically via GitHub Actions on merges to the deployment branch.
+
+Deployed docs: <add github pages url here>
 
 ## Copyright
 

@@ -1,0 +1,18 @@
+---
+title: "dumbpy"
+---
+
+`dumbpy` is a small statistics-oriented package providing simple utilities for working with
+nested iterables of numeric values.
+
+## Quickstart
+
+```python
+from dumbpy import arithmetic_mean, std_deviation, median, flatten_list, validate_list
+
+arithmetic_mean([1, 2, 3])  # 2.0
+std_deviation([1, 2, 3])    # 0.816496580927726
+median([1, 2, 3, 4])        # 2.5
+flatten_list([[1, 2], [3]]) # [1, 2, 3]
+validate_list([1, 2, 3])    # [1, 2, 3]
+```
