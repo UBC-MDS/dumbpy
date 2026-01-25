@@ -1,12 +1,5 @@
 # Welcome to dumbpy
 
-|  |  |
-|------------------------------------|------------------------------------|
-| Package | [![Latest PyPI Version](https://img.shields.io/pypi/v/dumbpy.svg)](https://pypi.org/project/dumbpy/) [![Supported Python Versions](https://img.shields.io/pypi/pyversions/dumbpy.svg)](https://pypi.org/project/dumbpy/) |
-| Meta | [![Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md) |
-
-*TODO: the above badges that indicate python version and package version will only work if your package is on PyPI. If you don't plan to publish to PyPI, you can remove them.*
-
 DumbPy is an alternative version of NumPy, which facilitates scientific computing using Python. DumbPy contains numeric functions that provide useful summary statistics of numerical lists, listed below. DumbPy additionally carries out strict input testing to provide clear and user-friendly error messages and facilitate proper usage.
 
 DumbPy Functions:
