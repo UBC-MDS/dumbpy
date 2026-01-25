@@ -8,9 +8,11 @@ Covered behavior
 - Works on a single-element list
 - Works with negative values
 - Nested numeric iterables are flattened via validate_list
+- Accepts general iterables (e.g., tuples)
 - Empty input raises ValueError
 - Non-numeric input raises TypeError
 """
+
 
 from typing import Any
 
@@ -121,3 +123,16 @@ def test_std_deviation_non_numeric_raises_typeerror() -> None:
     """
     with pytest.raises(TypeError, match="not a numeric value"):
         std_deviation([1, "a", 3])
+
+def test_std_deviation_accepts_tuple_input() -> None:
+    """
+    Test that std_deviation accepts a tuple as input.
+
+    Returns
+    -------
+    None
+    """
+    values: tuple[int, int, int, int] = (1, 2, 3, 4)
+    expected: float = 1.118033988749895
+
+    assert std_deviation(values) == pytest.approx(expected)

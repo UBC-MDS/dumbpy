@@ -1,0 +1,94 @@
+---
+title: "Examples"
+execute:
+  eval: false
+---
+
+This page shows simple examples for each public function in `dumbpy`.
+(Examples are shown for demonstration and are not executed during the docs build.)
+
+## `arithmetic_mean`
+
+Compute the average of numbers. Nested lists are flattened first.
+
+```{python}
+from dumbpy import arithmetic_mean
+
+arithmetic_mean([1, 2, 3, 4])  # 2.5
+arithmetic_mean([1, [2, 3]])   # 2.0
+```
+
+```{python}
+from dumbpy import arithmetic_mean
+
+# arithmetic_mean([])  # raises ValueError
+```
+
+## `median`
+
+Compute the median (middle value) of numbers. Nested lists are flattened first.
+
+```{python}
+from dumbpy import median
+
+median([3, 1, 2])        # 2
+median([1, 2, 3, 4])     # 2.5
+```
+
+```{python}
+from dumbpy import median
+
+# median([])  # raises ValueError
+```
+
+## `std_deviation`
+
+Compute the population standard deviation of numeric values. Nested lists are flattened first.
+
+```{python}
+from dumbpy import std_deviation
+
+std_deviation([1, 1, 1, 1])     # 0.0
+std_deviation([1, 2, 3, 4])     # 1.118033988749895
+```
+
+```{python}
+from dumbpy import std_deviation
+
+# std_deviation([])  # raises ValueError
+```
+
+## `flatten_list`
+
+Flatten a nested iterable into a one-dimensional Python list.
+
+```{python}
+from dumbpy import flatten_list
+
+flatten_list([1, 2, [3, 4]])            # [1, 2, 3, 4]
+flatten_list([[1, 2], [3, [4, 5]]])     # [1, 2, 3, 4, 5]
+flatten_list([])                        # []
+```
+
+```{python}
+from dumbpy import flatten_list
+
+# flatten_list("abc")  # raises TypeError (strings are not allowed as top-level input)
+```
+
+## `validate_list`
+
+Flatten the input and ensure all resulting values are numeric (`int`, `float`, or `bool`).
+
+```{python}
+from dumbpy import validate_list
+
+validate_list([1, 2, 3.5])     # [1, 2, 3.5]
+validate_list([1, True, 6])    # [1, True, 6]
+```
+
+```{python}
+from dumbpy import validate_list
+
+# validate_list([1, "a", 3])  # raises TypeError: a is not a numeric value.
+```

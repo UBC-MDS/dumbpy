@@ -1,0 +1,53 @@
+# arithmetic_mean { #dumbpy.arithmetic_mean }
+
+`arithmetic_mean`
+
+dumbpy.arithmetic_mean
+======================
+
+Compute the arithmetic mean of numeric values.
+
+The input may be a nested iterable; nesting is flattened via
+:func:`dumbpy.support_functions.validate_list`.
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [arithmetic_mean](#dumbpy.arithmetic_mean.arithmetic_mean) | Compute the arithmetic mean of numeric values. |
+
+### arithmetic_mean { #dumbpy.arithmetic_mean.arithmetic_mean }
+
+```python
+arithmetic_mean.arithmetic_mean(values)
+```
+
+Compute the arithmetic mean of numeric values.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type            | Description                                             | Default    |
+|--------|-----------------|---------------------------------------------------------|------------|
+| values | Iterable\[Any\] | A (possibly nested) iterable containing numeric values. | _required_ |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type   | Description                                |
+|--------|--------|--------------------------------------------|
+|        | float  | The arithmetic mean of the numeric values. |
+
+#### Raises {.doc-section .doc-section-raises}
+
+| Name   | Type       | Description                                                                                                              |
+|--------|------------|--------------------------------------------------------------------------------------------------------------------------|
+|        | ValueError | If the flattened input contains no elements.                                                                             |
+|        | TypeError  | If the input is not a valid iterable for flattening, or if any element is non-numeric (raised by :func:`validate_list`). |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```python
+>>> arithmetic_mean([1, 2, 3, 4])
+2.5
+>>> arithmetic_mean([1, [2, 3]])
+2.0
+```

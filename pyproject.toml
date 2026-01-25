@@ -13,7 +13,7 @@ requires = ["hatchling"]
 [project]
 name = "dumbpy"
 # You can chose to use dynamic versioning with hatch or static where you add it manually.
-version = "0.1.0"
+version = "0.0.9"
 
 description = "A dumber version of numpy"
 authors = [
@@ -38,11 +38,11 @@ keywords = []
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/UBC-MDS/dumbpy/dumbpy"
-"Source Code" = "https://github.com/UBC-MDS/dumbpy/dumbpy"
-"Bug Tracker" = "https://github.com/UBC-MDS/dumbpy/dumbpy/issues"
-Documentation = "https://github.com/UBC-MDS/dumbpy/dumbpy/blob/main/README.md"
-Download = "https://pypi.org/project/dumbpy/#files"
+Homepage = "https://github.com/UBC-MDS/dumbpy"
+"Source Code" = "https://github.com/UBC-MDS/dumbpy"
+"Bug Tracker" = "https://github.com/UBC-MDS/dumbpy/issues"
+Documentation = "https://github.com/UBC-MDS/dumbpy/blob/main/README.md"
+Download = "https://test.pypi.org/project/dumbpy/#files"
 
 [project.optional-dependencies]
 # The groups below should be in the [development-groups] table

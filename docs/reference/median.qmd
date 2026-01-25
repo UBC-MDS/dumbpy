@@ -1,0 +1,53 @@
+# median { #dumbpy.median }
+
+`median`
+
+dumbpy.median
+=============
+
+Compute the median of numeric values.
+
+The input may be a nested iterable; nesting is flattened via
+:func:`dumbpy.support_functions.validate_list`.
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [median](#dumbpy.median.median) | Compute the median of numeric values. |
+
+### median { #dumbpy.median.median }
+
+```python
+median.median(values)
+```
+
+Compute the median of numeric values.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type            | Description                                             | Default    |
+|--------|-----------------|---------------------------------------------------------|------------|
+| values | Iterable\[Any\] | A (possibly nested) iterable containing numeric values. | _required_ |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type             | Description                                                                                                                                                                                                                                                                                                                                                 |
+|--------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | Numeric \| float | The median value of the input after sorting. For odd-length inputs, the middle element is returned (so the type may be ``int``, ``float``, or ``bool``). For even-length inputs, the average of the two middle values is returned, which is typically a ``float`` (but can be an ``int``/``bool`` when the middle values are equal in this implementation). |
+
+#### Raises {.doc-section .doc-section-raises}
+
+| Name   | Type       | Description                                                                                                              |
+|--------|------------|--------------------------------------------------------------------------------------------------------------------------|
+|        | ValueError | If the flattened input contains no elements.                                                                             |
+|        | TypeError  | If the input is not a valid iterable for flattening, or if any element is non-numeric (raised by :func:`validate_list`). |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```python
+>>> median([3, 1, 2])
+2
+>>> median([1, 2, 3, 4])
+2.5
+```

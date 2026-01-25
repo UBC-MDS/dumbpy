@@ -13,6 +13,7 @@ flatten_list:
 - Recursively flattens nested iterables
 - Treats str/bytes as atomic leaf values when nested
 - Raises TypeError for non-iterables and for string/bytes at top-level
+- Flattens dictionaries by iterating over their keys (standard Python behavior)
 
 validate_list:
 - Flattens input via flatten_list
@@ -20,6 +21,7 @@ validate_list:
 - Returns the flattened list if valid
 - Raises TypeError if any flattened element is non-numeric
 - Propagates flatten_list TypeError for invalid top-level input
+- Accepts dictionaries if their flattened keys are numeric (dict values are not iterated)
 """
 
 from collections import Counter
@@ -136,6 +138,26 @@ def test_flatten_list_raises_typeerror_for_invalid_top_level_inputs(bad_input: A
     with pytest.raises(TypeError, match="non-string, non-bytes iterable"):
         flatten_list(bad_input)
 
+def test_flatten_list_dict_is_flattened_by_iterating_over_keys_order_irrelevant() -> None:
+    """
+    Test flatten_list flattens dictionaries by iterating over their keys.
+
+    Notes
+    -----
+    Dict iteration yields keys. Ordering is not asserted; only membership and
+    multiplicity are checked.
+
+    Returns
+    -------
+    None
+    """
+    values: list[Any] = [{"a": 1, "b": 2}, ["c"]]
+    expected_elements: list[str] = ["a", "b", "c"]
+
+    actual: list[Any] = flatten_list(values)
+
+    assert isinstance(actual, list)
+    assert Counter(actual) == Counter(expected_elements)
 
 def test_validate_list_all_int_list_returns_flat_list() -> None:
     """
@@ -283,3 +305,23 @@ def test_validate_list_propagates_flatten_list_typeerror_on_invalid_input(bad_in
     """
     with pytest.raises(TypeError, match="non-string, non-bytes iterable"):
         validate_list(bad_input)
+
+def test_validate_list_dict_with_numeric_keys_returns_flat_key_list() -> None:
+    """
+    Test validate_list accepts a dictionary with numeric keys.
+
+    Notes
+    -----
+    Dictionaries are iterated by keys, so values are not validated.
+
+    Returns
+    -------
+    None
+    """
+    values: dict[int, str] = {1: "x", 2: "y", 3: "z"}
+    expected_elements: list[int] = [1, 2, 3]
+
+    actual = validate_list(values)
+
+    assert isinstance(actual, list)
+    assert Counter(actual) == Counter(expected_elements)

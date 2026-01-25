@@ -1,0 +1,57 @@
+# std_deviation { #dumbpy.std_deviation }
+
+`std_deviation`
+
+dumbpy.std_deviation
+====================
+
+Compute the population standard deviation of numeric values.
+
+The input may be a nested iterable; nesting is flattened via
+:func:`dumbpy.support_functions.validate_list`.
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [std_deviation](#dumbpy.std_deviation.std_deviation) | Compute the population standard deviation of numeric values. |
+
+### std_deviation { #dumbpy.std_deviation.std_deviation }
+
+```python
+std_deviation.std_deviation(values)
+```
+
+Compute the population standard deviation of numeric values.
+
+This uses the population variance definition:
+
+``variance = sum((x - mean)**2) / n``
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type            | Description                                             | Default    |
+|--------|-----------------|---------------------------------------------------------|------------|
+| values | Iterable\[Any\] | A (possibly nested) iterable containing numeric values. | _required_ |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type   | Description                                              |
+|--------|--------|----------------------------------------------------------|
+|        | float  | The population standard deviation of the numeric values. |
+
+#### Raises {.doc-section .doc-section-raises}
+
+| Name   | Type       | Description                                                                                                              |
+|--------|------------|--------------------------------------------------------------------------------------------------------------------------|
+|        | ValueError | If the flattened input contains no elements.                                                                             |
+|        | TypeError  | If the input is not a valid iterable for flattening, or if any element is non-numeric (raised by :func:`validate_list`). |
+
+#### Examples {.doc-section .doc-section-examples}
+
+```python
+>>> std_deviation([1, 1, 1, 1])
+0.0
+>>> std_deviation([1, 2, 3, 4])
+1.118033988749895
+```
