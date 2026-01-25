@@ -6,10 +6,12 @@ Covered behavior
 - Odd number of data points
 - Even number of data points
 - Even-length branch where the middle two values are equal
+- Works on bool-only inputs (bool treated as numeric)
 - Nested numeric iterables are flattened via validate_list
 - Empty input raises ValueError
 - Non-numeric input raises TypeError
 """
+
 
 from typing import Any
 
@@ -102,3 +104,21 @@ def test_median_non_numeric_raises_typeerror(values: Any) -> None:
     """
     with pytest.raises(TypeError, match="not a numeric value"):
         median(values)
+
+def test_median_all_bools_odd_length() -> None:
+    """
+    Test median on an odd-length bool-only list.
+
+    Notes
+    -----
+    ``bool`` is a subclass of ``int`` in Python, so sorting and comparisons are
+    numeric in nature (False == 0, True == 1).
+
+    Returns
+    -------
+    None
+    """
+    values: list[bool] = [True, False, False]
+    expected: bool = False
+
+    assert median(values) == expected
