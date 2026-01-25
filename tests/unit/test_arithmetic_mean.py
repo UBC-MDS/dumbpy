@@ -9,7 +9,9 @@ Covered behavior
 - Accepts general iterables (e.g., tuples, generators)
 - Raises ValueError on empty input
 - Raises TypeError when non-numeric values appear after flattening
+- Raises TypeError on top-level string/bytes inputs (propagated from flatten_list)
 """
+
 
 from typing import Any, Iterable
 
@@ -156,3 +158,14 @@ def test_arithmetic_mean_non_numeric_raises_typeerror(values: Any) -> None:
     """
     with pytest.raises(TypeError, match="not a numeric value"):
         arithmetic_mean(values)
+
+def test_arithmetic_mean_top_level_string_raises_typeerror() -> None:
+    """
+    Test that arithmetic_mean raises TypeError on top-level string input.
+
+    Returns
+    -------
+    None
+    """
+    with pytest.raises(TypeError, match="non-string, non-bytes iterable"):
+        arithmetic_mean("1234")
