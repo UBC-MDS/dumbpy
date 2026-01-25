@@ -84,7 +84,7 @@ quarto preview
 
 Docs are deployed automatically via GitHub Actions on merges to the deployment branch.
 
-Deployed docs: <add github pages url here>
+Deployed docs: <[dumpy documentation](https://ubc-mds.github.io/dumbpy/)>
 
 ## Copyright
 
