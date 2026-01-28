@@ -27,6 +27,8 @@ website:
         text: Examples
       - href: reference/index.qmd
         text: Reference
+      - href: org_retrospective.qmd
+        text: Organization Retrospective
 
 quartodoc:
   package: dumbpy

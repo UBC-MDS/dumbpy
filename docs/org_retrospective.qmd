@@ -1,0 +1,11 @@
+---
+title: "Organization Retrospective"
+execute:
+  eval: false
+---
+
+This course expanded upon and cemented some of the collaborative working procedures that we learned in DSCI 522. We practiced using GitHub branches in order to work simultaneously and avoid merge conflicts. We learned to use a 'dev' or 'development' branch to provide a layer of protection between recent changes and the deployed 'main' branch that users may be relying on. We created individual branches, completed our work, then merged the changes to `dev`, to check functionality before deploying to `main` after all work was completed. We also practiced using pull requests, where we had each other review our work, offer comments, and approve after changes had been main. We learned to create pull requests to merge into the `dev` branch, rather than going only to `main`. 
+
+We also used GitHub Issues to facilitate group work. We split the work for each milestone into separate issues, and assigned a person to each task during our group meetings. This way, all tasks were clearly split up, and it was clearly documented whose responsibility each task was. We also assigned each issue to the milestone it belonged to, with the due date attached to the milestone. This way, it was easy to see when each task needed to be completed. We also used a project board to give a convenient way to visualize the tasks and the status of each one. We could quickly see when each task was started, in progress, ready for review, or finished. It made it very quick to check on the progress of the project, and who still had work to do. 
+
+If we were to scale up our project, or work on another project, we would implement these practices described above, if the team we were working on was willing to do so. We would use GitHub issues to split up the tasks and assign individuals to each task. We would also group the issues by date they should be completed by using milestones. We would also enable a project board, in order to visually keep track of the project. Finally, we would set up the repository with a development branch, and protect the main branch to prevent accidental force pushing. We would use the system of pull requests to review each others' work, and keep all group members on the same page. 
