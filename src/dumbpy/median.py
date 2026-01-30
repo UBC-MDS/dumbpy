@@ -27,10 +27,8 @@ def median(values: Iterable[Any]) -> Numeric | float:
     -------
     Numeric | float
         The median value of the input after sorting. For odd-length inputs, the
-        middle element is returned (so the type may be ``int``, ``float``, or
-        ``bool``). For even-length inputs, the average of the two middle values
-        is returned, which is typically a ``float`` (but can be an ``int``/``bool``
-        when the middle values are equal in this implementation).
+        middle element is returned. For even-length inputs, the average of the two middle values
+        is returned.
 
     Raises
     ------
@@ -57,9 +55,9 @@ def median(values: Iterable[Any]) -> Numeric | float:
     mid: int = n_elements // 2
 
     if n_elements % 2 == 1:
-        return numbers_sorted[mid]
+        return float(numbers_sorted[mid])
 
     if numbers_sorted[mid - 1] == numbers_sorted[mid]:
-        return numbers_sorted[mid - 1]
+        return float(numbers_sorted[mid - 1])
 
-    return (numbers_sorted[mid - 1] + numbers_sorted[mid]) / 2
+    return float((numbers_sorted[mid - 1] + numbers_sorted[mid]) / 2)
