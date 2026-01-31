@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Upcoming features and fixes
+- In response to peer review: validate_list now rejects NaN/Inf values.
 
 ## [0.1.0] - (1979-01-01)
 
