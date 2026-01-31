@@ -22,9 +22,11 @@ validate_list:
 - Raises TypeError if any flattened element is non-numeric
 - Propagates flatten_list TypeError for invalid top-level input
 - Accepts dictionaries if their flattened keys are numeric (dict values are not iterated)
+- Raises ValueError for NaN/Inf floats
 """
 
 from collections import Counter
+import math
 from typing import Any
 
 import pytest
@@ -138,6 +140,7 @@ def test_flatten_list_raises_typeerror_for_invalid_top_level_inputs(bad_input: A
     with pytest.raises(TypeError, match="non-string, non-bytes iterable"):
         flatten_list(bad_input)
 
+
 def test_flatten_list_dict_is_flattened_by_iterating_over_keys_order_irrelevant() -> None:
     """
     Test flatten_list flattens dictionaries by iterating over their keys.
@@ -188,7 +191,31 @@ def test_validate_list_all_float_list_returns_flat_list() -> None:
     expected: list[float] = [1.0, 2.5, 3.25]
 
     assert validate_list(values) == expected
+    
+    
+def test_validate_list_rejects_nan_raises_valueerror() -> None:
+    """
+    Test validate_list rejects NaN floats.
 
+    Returns
+    -------
+    None
+    """
+    with pytest.raises(ValueError, match="NaN/Inf not allowed."):
+        validate_list([1.0, math.nan, 2.0])
+
+
+def test_validate_list_rejects_inf_raises_valueerror() -> None:
+    """
+    Test validate_list rejects infinity floats.
+
+    Returns
+    -------
+    None
+    """
+    with pytest.raises(ValueError, match="NaN/Inf not allowed."):
+        validate_list([1.0, math.inf, 2.0])
+        
 
 def test_validate_list_all_bool_list_returns_flat_list() -> None:
     """
