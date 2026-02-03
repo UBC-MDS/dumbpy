@@ -16,10 +16,10 @@ As stated above, the NumPy package already exists and provides similar functions
 
 ## Get started
 
-You can install this package into your preferred Python environment using pip:
+You can install this package into your preferred Python environment using pip (we don't have it pushed to PyPI, we need to use Test):
 
 ``` bash
-pip install dumbpy 
+pip install -i https://test.pypi.org/simple/ dumbpy
 ```
 
 To use dumbpy in your code:
