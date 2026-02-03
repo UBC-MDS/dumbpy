@@ -1,5 +1,7 @@
 # Welcome to dumbpy
 
+[![codecov](https://codecov.io/github/ubc-mds/dumbpy/graph/badge.svg?token=ESzmgptY4z)](https://codecov.io/github/ubc-mds/dumbpy)
+
 ## 2025-26 DSCI-524 Group 18
 
 ## About dumbpy
