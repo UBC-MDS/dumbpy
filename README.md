@@ -1,5 +1,9 @@
 # Welcome to dumbpy
 
+## 2025-26 DSCI-524 Group 18
+
+## About dumbpy
+
 DumbPy is an alternative version of NumPy, which facilitates scientific computing using Python. DumbPy contains numeric functions that provide useful summary statistics of numerical lists, listed below. DumbPy additionally carries out strict input testing to provide clear and user-friendly error messages and facilitate proper usage.
 
 DumbPy Functions:
@@ -13,6 +17,11 @@ DumbPy Functions:
 -   `median` - the median function will calculate and return the median value of the inputted numerical list
 
 As stated above, the NumPy package already exists and provides similar functions. NumPy can be found at the following link: <https://numpy.org/>. DumbPy is an alternative version, which is much simpler and has a narrower focus.
+
+## Relevant links
+
+**[Documentation](https://ubc-mds.github.io/dumbpy/)**
+**[Test-PyPI](https://test.pypi.org/project/dumbpy/)**
 
 ## Get started
 
@@ -84,7 +93,7 @@ quarto preview
 
 Docs are deployed automatically via GitHub Actions on merges to the deployment branch.
 
-Deployed docs: <[dumpy documentation](https://ubc-mds.github.io/dumbpy/)>
+Deployed docs: [dumpy documentation](https://ubc-mds.github.io/dumbpy/)
 
 ## Copyright
 
