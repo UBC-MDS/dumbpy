@@ -26,3 +26,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Milestone 4: Improved documentation, small fixes, reflections
 - In response to Issue #67: updated median.py function to always return a float. 
 - In response to Issue #67 and Issue #65: validate_list now rejects NaN/Inf values.
+- In response to Issue #64: Fixed installation method through `pip install -i https://test.pypi.org/simple/ dumbpy`
