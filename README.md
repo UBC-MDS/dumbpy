@@ -20,8 +20,8 @@ As stated above, the NumPy package already exists and provides similar functions
 
 ## Relevant links
 
-**[Documentation](https://ubc-mds.github.io/dumbpy/)**
-**[Test-PyPI](https://test.pypi.org/project/dumbpy/)**
+- **[Documentation](https://ubc-mds.github.io/dumbpy/)**
+- **[Test-PyPI](https://test.pypi.org/project/dumbpy/)**
 
 ## Get started
 
