@@ -20,6 +20,7 @@ Notes
   keys (standard Python behavior).
 """
 
+import math
 from collections.abc import Iterable
 from typing import Any
 
@@ -98,6 +99,8 @@ def validate_list(values: Iterable[Any]) -> list[Numeric]:
     TypeError
         If `values` is not a valid top-level input for :func:`flatten_list`, or
         if any flattened element is not numeric.
+    ValueError
+        If any numeric value is non-finite (NaN or Infinity).
 
     Examples
     --------
@@ -116,6 +119,8 @@ def validate_list(values: Iterable[Any]) -> list[Numeric]:
     for value in flat_values:
         if not isinstance(value, (int, float, bool)):
             raise TypeError(f"{value} is not a numeric value.")
+        if isinstance(value, float) and not math.isfinite(value):
+            raise ValueError("NaN/Inf not allowed.")
         numeric_values.append(value)
 
     return numeric_values

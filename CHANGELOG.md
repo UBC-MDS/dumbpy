@@ -7,8 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Upcoming features and fixes
+- In response to peer review: validate_list now rejects NaN/Inf values.
 
-## [0.1.0] - (1979-01-01)
+## [0.0.1] - (2026-01-10)
 
-- First release
+- Milestone 1: First release
+
+## [0.0.2] - (2026-01-17)
+
+- Milestone 2: Code Functionality
+
+## [1.0.0] - (2026-01-24)
+
+- Milestone 3: Continuous integration, deployment, documentation site
+
+## [1.0.1] - (2026-01-31)
+
+- Milestone 4: Improved documentation, small fixes, reflections
+- In response to Issue #67: updated median.py function to always return a float. 
