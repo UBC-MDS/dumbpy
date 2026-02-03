@@ -1,50 +1,40 @@
-# Workflow for publishing into pyPI   
+# Workflow for CI + semantic-release + publish to TestPyPI (build from the release tag)
 
-name: ci-cd     
+name: ci-cd
 
 on:
   push:
     branches: [ main ]
-    tags:
-      - "*.*.*"
   pull_request:
     branches: [ main ]
   workflow_dispatch:
 
 jobs:
   ci:
-    # Set up operating system
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12', '3.13']
 
-    # Steps represent a sequence of tasks that will be executed as 
-    # part of the job
     steps:
-      # Checks-out your repository so your job can access it
       - name: Check-out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      # Set up Python
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e .[tests]
 
-      # Run pytest with coverage
       - name: Run tests with coverage
         run: |
           pytest --cov=dumbpy --cov-branch --cov-report=xml
-      
-      # Badge
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
@@ -55,12 +45,16 @@ jobs:
     needs: ci
     permissions:
       contents: write
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    outputs:
+      released_tag: ${{ steps.semrel.outputs.released_tag }}
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - uses: actions/setup-python@v5
         with:
@@ -76,45 +70,67 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Semantic version bump + tag
+      # Creates the release commit + tag (and pushes them).
+      # Then we read the "last released tag" and expose it as an output for the cd job.
+      - name: Semantic version bump + tag (and export tag)
+        id: semrel
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: 
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BEFORE="$(semantic-release version --print-last-released-tag 2>/dev/null || true)"
+          echo "Last released tag before: ${BEFORE:-<none>}"
+
           semantic-release version --no-changelog --skip-build --no-vcs-release
 
+          AFTER="$(semantic-release version --print-last-released-tag 2>/dev/null || true)"
+          echo "Last released tag after: ${AFTER:-<none>}"
 
+          # Only publish if a new tag was actually created
+          if [[ -n "${AFTER}" && "${AFTER}" != "${BEFORE}" ]]; then
+            echo "released_tag=${AFTER}" >> "$GITHUB_OUTPUT"
+          else
+            echo "released_tag=" >> "$GITHUB_OUTPUT"
+            echo "No new release created (no version bump)."
+          fi
 
   cd:
-
-    # Set up operating system
     runs-on: ubuntu-latest
+    needs: release
 
     permissions:
       id-token: write
-      contents: write
-    # Only run this job if the "ci" job passes
-    needs: release
+      contents: read
 
-    # Only run this job if new work is pushed to "main" or "dev"
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main')
+    # Only run if release created a new tag
+    if: needs.release.outputs.released_tag != ''
 
-    # Define job steps
     steps:
-      - name: Check-out repository
-        uses: actions/checkout@v3
+      - name: Check-out released tag
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12
+          fetch-tags: true
+          ref: ${{ needs.release.outputs.released_tag }}
 
-      # Install dependencies
-      - name: Install dependencies
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tooling
         run: |
           python -m pip install --upgrade pip
-          pip install -e .[dev]
+          pip install hatch
+
+      - name: Show git/tag info (sanity check)
+        shell: bash
+        run: |
+          git status --porcelain
+          git describe --tags --always || true
+          python -c "import pathlib; print(pathlib.Path('.').resolve())"
 
       - name: Hatch build locally
         run: hatch build
@@ -126,18 +142,14 @@ jobs:
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
 
   testdumbpy:
-
-    # Set up operating system
     runs-on: ubuntu-latest
-
     needs: cd
 
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12', '3.13']
-      
-    steps:
 
+    steps:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -146,9 +158,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install \
-          --index-url https://test.pypi.org/simple/ \
-          --extra-index-url https://pypi.org/simple/ \
-          dumbpy
+            --index-url https://test.pypi.org/simple/ \
+            --extra-index-url https://pypi.org/simple/ \
+            dumbpy
 
-
-    
+      - name: Print installed version
+        run: |
+          python -c "import dumbpy; print('dumbpy version:', getattr(dumbpy, '__version__', '<no __version__>'))"
