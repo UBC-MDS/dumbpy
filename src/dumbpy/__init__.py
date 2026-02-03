@@ -47,6 +47,7 @@ from dumbpy.median import median
 from dumbpy.std_deviation import std_deviation
 from dumbpy.support_functions import flatten_list
 from dumbpy.support_functions import validate_list
+from .__version__ import __version__
 
 __all__: list[str] = [
     "arithmetic_mean",
